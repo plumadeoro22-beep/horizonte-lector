@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Lectura Viva: Escuela y Familia que Inspiran</title>
+<style>
+/* ══════════════════════════════════════════
+   VARIABLES & RESET
+══════════════════════════════════════════ */
+:root{
+  --home-a:#6a11cb; --home-b:#e0562e;
+  --home-grad:linear-gradient(135deg,#6a11cb 0%,#e0562e 100%);
+  --doc-a:#1565c0;  --doc-b:#00acc1;
+  --doc-grad:linear-gradient(135deg,#1565c0 0%,#00acc1 100%);
+  --est-a:#e65100;  --est-b:#ffa000;
+  --est-grad:linear-gradient(135deg,#e65100 0%,#ffa000 100%);
+  --fam-a:#1b5e20;  --fam-b:#43a047;
+  --fam-grad:linear-gradient(135deg,#1b5e20 0%,#43a047 100%);
+  --gold:#f9a825;
+  --radius:16px; --radius-sm:10px;
+  --shadow:0 8px 32px rgba(0,0,0,.16);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.22);
+  --dark:#0f0f1e; --text:#1a1a2e; --muted:#666;
+  --surface:#fff; --bg:#f2f4f8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+     background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh}
+
+/* ══════════════════════════════════════════
+   NAV
+══════════════════════════════════════════ */
+#top-nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 20px;
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(16px);
+  box-shadow:0 2px 16px rgba(0,0,0,.1);
+}
+#nav-logo{
+  font-size:1.05rem;font-weight:900;cursor:pointer;
+  background:var(--home-grad);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;
+  flex-shrink:0;white-space:nowrap;
+}
+#nav-links{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.nav-btn{
+  border:none;cursor:pointer;padding:7px 13px;
+  border-radius:30px;font-size:.78rem;font-weight:700;
+  transition:all .22s;color:#fff;white-space:nowrap;
+}
+.nb-home{background:var(--home-grad)}
+.nb-doc {background:var(--doc-grad)}
+.nb-est {background:var(--est-grad)}
+.nb-fam {background:var(--fam-grad)}
+.nav-btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+
+/* ══════════════════════════════════════════
+   PAGES
+══════════════════════════════════════════ */
+.page{display:none;min-height:100vh;padding-top:64px;animation:fadeUp .4s ease both}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════════
+   HOME HERO
+══════════════════════════════════════════ */
+#page-home{background:var(--dark)}
+
+.hero{
+  background:linear-gradient(135deg,rgba(106,17,203,.88),rgba(224,86,46,.85)),
+             url('https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1400&q=80') center/cover;
+  padding:56px 24px 50px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 20% 50%,rgba(255,255,255,.08) 0%,transparent 70%),
+             radial-gradient(ellipse at 80% 20%,rgba(255,255,255,.06) 0%,transparent 60%);
+}
+.hero-dots{
+  position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.12) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+/* APP NAME — PROTAGONISTA */
+.hero-appname{
+  position:relative;z-index:1;
+  font-size:clamp(2.2rem,7vw,4.2rem);
+  font-weight:900;color:#fff;
+  text-shadow:0 4px 28px rgba(0,0,0,.45);
+  line-height:1.1;margin-bottom:4px;
+  letter-spacing:-1px;
+}
+.hero-appname .gold{color:var(--gold);text-shadow:0 0 30px rgba(249,168,37,.5)}
+.hero-subtitle{
+  position:relative;z-index:1;
+  font-size:clamp(1rem,3vw,1.35rem);
+  font-weight:600;color:rgba(255,255,255,.88);
+  letter-spacing:.8px;margin-bottom:22px;
+  text-transform:uppercase;
+}
+/* PREGUNTA — SEGUNDO ORDEN */
+.hero-question{
+  position:relative;z-index:1;
+  display:inline-block;
+  font-size:clamp(.85rem,2.2vw,.98rem);
+  color:rgba(255,255,255,.75);
+  font-style:italic;font-weight:500;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:30px;padding:10px 22px;
+  max-width:520px;line-height:1.5;
+}
+
+/* BANNER */
+.banner{
+  background:var(--gold);color:#1a1a2e;
+  padding:16px 28px;text-align:center;
+  font-size:clamp(1rem,3vw,1.3rem);font-weight:800;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.banner-pulse{font-size:1.5rem;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
+
+/* HOME CONTENT */
+.home-content{max-width:920px;margin:0 auto;padding:36px 20px 50px}
+
+/* CTA CARDS */
+.cta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin:28px 0}
+.cta-card{
+  border:none;cursor:pointer;border-radius:var(--radius);
+  padding:34px 20px;text-align:center;color:#fff;
+  font-weight:800;font-size:1.1rem;
+  transition:all .3s;box-shadow:var(--shadow);
+}
+.cta-card.cc-doc{background:var(--doc-grad)}
+.cta-card.cc-est{background:var(--est-grad)}
+.cta-card.cc-fam{background:var(--fam-grad)}
+.cta-card:hover{transform:translateY(-7px) scale(1.02);box-shadow:var(--shadow-lg)}
+.cta-icon{font-size:3rem;display:block;margin-bottom:10px}
+.cta-desc{font-size:.8rem;opacity:.88;margin-top:5px;font-weight:500}
+
+/* VIDEO THUMBNAIL (click-to-play) */
+.yt-thumb-wrap{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow-lg);margin:8px 0 24px;
+  cursor:pointer;background:#000;
+}
+.yt-thumb-wrap img{
+  width:100%;aspect-ratio:16/9;display:block;
+  object-fit:cover;transition:transform .35s,filter .35s;
+  filter:brightness(.82);
+}
+.yt-thumb-wrap:hover img{transform:scale(1.03);filter:brightness(.7)}
+.yt-play-btn{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
+}
+.yt-play-circle{
+  width:74px;height:74px;border-radius:50%;
+  background:rgba(255,0,0,.9);display:flex;align-items:center;
+  justify-content:center;transition:all .25s;box-shadow:0 4px 24px rgba(0,0,0,.5);
+}
+.yt-thumb-wrap:hover .yt-play-circle{background:#ff0000;transform:scale(1.1)}
+.yt-play-circle svg{width:30px;height:30px;fill:#fff;margin-left:4px}
+.yt-play-label{
+  color:#fff;font-weight:700;font-size:.9rem;
+  text-shadow:0 2px 8px rgba(0,0,0,.8);
+  background:rgba(0,0,0,.45);padding:6px 16px;border-radius:20px;
+  backdrop-filter:blur(4px);
+}
+.yt-thumb-bar{
+  background:rgba(0,0,0,.75);padding:10px 16px;
+  display:flex;align-items:center;gap:10px;
+}
+.yt-thumb-bar span{font-size:.82rem;color:rgba(255,255,255,.7)}
+.yt-thumb-bar strong{font-size:.88rem;color:#fff}
+
+/* DAILY PHRASE */
+.daily-phrase{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius);padding:22px;
+  text-align:center;margin-top:8px;
+}
+.daily-phrase small{display:block;color:rgba(255,255,255,.55);font-size:.78rem;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px}
+.daily-phrase blockquote{color:rgba(255,255,255,.92);font-style:italic;font-size:1rem;line-height:1.6}
+.daily-phrase cite{display:block;margin-top:8px;color:var(--gold);font-size:.82rem;font-style:normal;font-weight:700}
+
+/* ══════════════════════════════════════════
+   SECTION HEADERS
+══════════════════════════════════════════ */
+.sec-header{
+  padding:46px 24px 44px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.sec-header.sh-doc{background:var(--doc-grad)}
+.sec-header.sh-est{background:var(--est-grad)}
+.sec-header.sh-fam{background:var(--fam-grad)}
+.sec-header::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;height:44px;
+  background:var(--bg);clip-path:ellipse(54% 100% at 50% 100%);
+}
+.sec-header h1{font-size:clamp(1.6rem,4.5vw,2.4rem);color:#fff;font-weight:900;text-shadow:0 2px 12px rgba(0,0,0,.25);margin-bottom:8px}
+.sec-header p{color:rgba(255,255,255,.88);font-size:.95rem;max-width:560px;margin:0 auto}
+
+/* ══════════════════════════════════════════
+   CONTENT AREA
+══════════════════════════════════════════ */
+.content{max-width:1020px;margin:0 auto;padding:16px 18px 60px}
+.sec-title{
+  font-size:1.2rem;font-weight:800;
+  margin:32px 0 14px;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-title::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,currentColor 0%,transparent 100%);opacity:.25}
+
+/* STATS BAR */
+.stats-bar{
+  background:var(--surface);border-radius:var(--radius);
+  padding:16px 22px;box-shadow:var(--shadow);
+  display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin-bottom:20px;
+}
+.stat{text-align:center}
+.stat-n{font-size:1.7rem;font-weight:900;line-height:1}
+.stat-l{font-size:.68rem;color:var(--muted);font-weight:600;margin-top:2px}
+.export-btn{
+  margin-left:auto;background:var(--surface);border:2px solid #e0e0e0;
+  border-radius:var(--radius-sm);padding:9px 16px;font-weight:700;
+  cursor:pointer;font-size:.82rem;transition:all .2s;
+  display:flex;align-items:center;gap:7px;
+}
+.export-btn:hover{border-color:#6a11cb;color:#6a11cb}
+
+/* VIDEO SECTION (inside sections) — same thumb style */
+.yt-wrap{margin:6px 0 24px}
+
+/* ══════════════════════════════════════════
+   BOOK GRID & CARDS
+══════════════════════════════════════════ */
+.book-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(162px,1fr));
+  gap:16px;margin-bottom:28px;
+}
+.book-card{
+  background:var(--surface);border-radius:var(--radius);
+  box-shadow:0 3px 14px rgba(0,0,0,.09);overflow:hidden;
+  cursor:pointer;transition:all .26s;position:relative;
+}
+.book-card:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,.16)}
+.book-cover{
+  height:148px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:14px;
+  position:relative;
+}
+.book-cover::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(0,0,0,.18);
+}
+.bc-title{
+  position:relative;font-size:.74rem;font-weight:800;
+  color:#fff;text-align:center;
+  text-shadow:0 1px 8px rgba(0,0,0,.5);line-height:1.3;
+}
+.bc-author{
+  position:relative;font-size:.63rem;
+  color:rgba(255,255,255,.85);text-align:center;margin-top:6px;
+}
+.book-meta{padding:10px 12px}
+.book-meta h4{font-size:.8rem;font-weight:700;line-height:1.35;color:var(--text);margin-bottom:3px}
+.book-meta p{font-size:.7rem;color:var(--muted)}
+.book-pbar{height:4px;background:#eee;border-radius:2px;margin-top:8px;overflow:hidden}
+.book-pfill{height:100%;border-radius:2px;background:linear-gradient(90deg,#43a047,#a5d6a7);transition:width .5s}
+.book-stats{font-size:.67rem;color:#999;margin-top:4px}
+.book-stars{margin-top:3px;font-size:.75rem}
+.book-done{
+  position:absolute;top:8px;right:8px;
+  background:var(--gold);color:#1a1a2e;
+  font-size:.6rem;font-weight:800;padding:2px 7px;border-radius:10px;z-index:2;
+}
+
+/* Cover palettes */
+.cv0{background:linear-gradient(145deg,#1565c0,#42a5f5)}
+.cv1{background:linear-gradient(145deg,#6a1b9a,#ab47bc)}
+.cv2{background:linear-gradient(145deg,#2e7d32,#66bb6a)}
+.cv3{background:linear-gradient(145deg,#e65100,#ff8f00)}
+.cv4{background:linear-gradient(145deg,#880e4f,#e91e63)}
+.cv5{background:linear-gradient(145deg,#004d40,#26a69a)}
+.cv6{background:linear-gradient(145deg,#311b92,#7e57c2)}
+.cv7{background:linear-gradient(145deg,#bf360c,#ff7043)}
+.cv8{background:linear-gradient(145deg,#006064,#00bcd4)}
+.cv9{background:linear-gradient(145deg,#33691e,#aed581)}
+
+/* ══════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════ */
+#modal-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.65);z-index:2000;
+  align-items:center;justify-content:center;
+  padding:16px;backdrop-filter:blur(6px);
+}
+#modal-bg.open{display:flex}
+#modal-box{
+  background:var(--surface);border-radius:22px;
+  width:100%;max-width:580px;max-height:92vh;
+  overflow-y:auto;box-shadow:0 28px 72px rgba(0,0,0,.35);
+  animation:modalIn .32s ease both;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(30px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-head{
+  padding:22px 22px 0;
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+.modal-head h2{font-size:1.1rem;font-weight:800;line-height:1.35}
+.modal-x{
+  background:none;border:none;font-size:1.9rem;cursor:pointer;
+  color:#bbb;line-height:1;padding:0 2px;transition:color .2s;flex-shrink:0;
+}
+.modal-x:hover{color:#444}
+.modal-banner{
+  margin:14px 22px;border-radius:12px;
+  padding:16px 18px;color:#fff;
+}
+.modal-banner b{display:block;font-size:1rem;font-weight:800;margin-bottom:3px}
+.modal-banner small{opacity:.85;font-size:.82rem}
+.modal-body{padding:16px 22px 26px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:.84rem;font-weight:700;margin-bottom:5px}
+.fg input,.fg textarea{
+  width:100%;border:2px solid #e8e8e8;border-radius:var(--radius-sm);
+  padding:10px 13px;font-size:.9rem;font-family:inherit;
+  transition:border-color .2s;resize:vertical;
+}
+.fg input:focus,.fg textarea:focus{outline:none;border-color:#6a11cb}
+.fg textarea{min-height:72px}
+.star-row{display:flex;gap:5px;margin-top:4px}
+.sb{background:none;border:none;font-size:1.55rem;cursor:pointer;transition:transform .15s;line-height:1}
+.sb:hover{transform:scale(1.2)}
+.btn-main{
+  width:100%;padding:13px;border:none;border-radius:12px;
+  font-size:.97rem;font-weight:800;color:#fff;cursor:pointer;
+  transition:all .22s;margin-top:6px;
+}
+.btn-main:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn-sec{
+  background:#f2f2f2;color:var(--text);border:none;
+  padding:9px 16px;border-radius:var(--radius-sm);
+  font-weight:700;cursor:pointer;font-size:.87rem;transition:all .2s;
+}
+.btn-sec:hover{background:#e5e5e5}
+.history-item{
+  background:#f8f9fb;border-radius:var(--radius-sm);
+  padding:11px;margin-bottom:9px;
+  border-left:4px solid #ddd;font-size:.82rem;
+}
+.history-item h5{font-weight:700;margin-bottom:4px;font-size:.85rem}
+.history-item p{color:#555;line-height:1.55}
+
+/* ══════════════════════════════════════════
+   BADGES
+══════════════════════════════════════════ */
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin:10px 0 24px}
+.badge-card{
+  background:var(--surface);border-radius:var(--radius);
+  padding:18px 14px;text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
+  border:2px solid transparent;transition:all .3s;
+}
+.badge-card.earned{border-color:var(--gold);background:linear-gradient(135deg,#fff9e6,#fff)}
+.badge-card.locked{opacity:.4;filter:grayscale(1)}
+.badge-icon{font-size:2.4rem;display:block;margin-bottom:7px}
+.badge-name{font-size:.82rem;font-weight:800;color:var(--text)}
+.badge-desc{font-size:.68rem;color:var(--muted);margin-top:3px;line-height:1.4}
+.badge-earned-tag{font-size:.65rem;font-weight:800;color:var(--gold);margin-top:5px}
+
+/* ══════════════════════════════════════════
+   CHALLENGES
+══════════════════════════════════════════ */
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:14px;margin:10px 0 24px}
+.ch-card{
+  background:var(--surface);border-radius:var(--radius);
+  padding:18px;box-shadow:0 3px 12px rgba(0,0,0,.08);
+  border-top:4px solid;transition:all .25s;
+}
+.ch-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.ch-icon{font-size:1.7rem;margin-bottom:8px}
+.ch-card h4{font-size:.92rem;font-weight:800;margin-bottom:5px}
+.ch-card p{font-size:.8rem;color:var(--muted);margin-bottom:10px;line-height:1.5}
+.ch-pts{font-size:.72rem;font-weight:800;background:var(--gold);color:#1a1a2e;display:inline-block;padding:3px 10px;border-radius:20px}
+
+/* ══════════════════════════════════════════
+   REFLEXION BOX
+══════════════════════════════════════════ */
+.reflexion-box{background:var(--surface);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:28px}
+.reflexion-box p{font-size:.85rem;color:var(--muted);margin-bottom:12px;line-height:1.6}
+.reflexion-box textarea{
+  width:100%;border:2px solid #e8e8e8;border-radius:var(--radius-sm);
+  padding:11px;font-family:inherit;font-size:.9rem;resize:vertical;min-height:90px;
+}
+.reflexion-box textarea:focus{outline:none;border-color:#1565c0}
+.share-row{display:flex;gap:10px;margin-top:11px;flex-wrap:wrap}
+
+/* ══════════════════════════════════════════
+   TRIVIA
+══════════════════════════════════════════ */
+.trivia-box{background:var(--surface);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:28px}
+.trivia-score-bar{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #f0f0f0}
+.trivia-score-bar span{font-weight:700;font-size:.88rem}
+.trivia-q{font-size:.98rem;font-weight:700;margin-bottom:14px;line-height:1.55}
+.trivia-opts{display:flex;flex-direction:column;gap:9px}
+.topt{
+  background:#f5f6fa;border:2px solid #e8e8e8;
+  border-radius:var(--radius-sm);padding:11px 15px;
+  cursor:pointer;font-size:.88rem;font-weight:600;
+  text-align:left;transition:all .2s;
+}
+.topt:hover{border-color:#ffa000;background:#fff8e1}
+.topt.correct{border-color:#43a047;background:#e8f5e9;color:#2e7d32}
+.topt.wrong{border-color:#e53935;background:#ffebee;color:#c62828}
+.trivia-next{margin-top:14px;display:none}
+
+/* ══════════════════════════════════════════
+   REVIEWS
+══════════════════════════════════════════ */
+.review-form{background:var(--surface);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:20px}
+.review-form p{font-size:.85rem;color:var(--muted);margin-bottom:14px;line-height:1.5}
+.review-form select{
+  width:100%;border:2px solid #e8e8e8;border-radius:var(--radius-sm);
+  padding:10px 13px;font-size:.88rem;font-family:inherit;
+  margin-bottom:12px;background:#fff;
+}
+.review-form select:focus{outline:none;border-color:#e65100}
+.mood-row{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 12px}
+.mood-btn{
+  background:none;border:2px solid #e8e8e8;border-radius:50%;
+  width:42px;height:42px;font-size:1.35rem;cursor:pointer;transition:all .2s;
+}
+.mood-btn.sel,.mood-btn:hover{border-color:var(--gold);background:#fff9e6;transform:scale(1.12)}
+.review-item{background:#f8f9fb;border-radius:12px;padding:13px;margin-bottom:11px;border-left:4px solid var(--est-grad)}
+.ri-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;flex-wrap:wrap;gap:6px}
+.ri-book{font-weight:700;font-size:.88rem}
+.ri-text{font-size:.83rem;color:#555;line-height:1.55}
+
+/* ══════════════════════════════════════════
+   FAMILY GOAL
+══════════════════════════════════════════ */
+.fam-goal{background:var(--surface);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:24px}
+.fam-goal p{font-size:.85rem;color:var(--muted);margin-bottom:14px;line-height:1.5}
+.goal-track{background:#e8f5e9;border-radius:30px;height:20px;margin:12px 0;overflow:hidden}
+.goal-fill{height:100%;border-radius:30px;background:var(--fam-grad);transition:width .5s;position:relative}
+.goal-fill::after{
+  content:attr(data-pct);position:absolute;right:10px;top:50%;
+  transform:translateY(-50%);font-size:.7rem;font-weight:800;color:#fff;
+}
+
+/* ══════════════════════════════════════════
+   TIPS
+══════════════════════════════════════════ */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin:10px 0 24px}
+.tip-card{background:var(--surface);border-radius:var(--radius);padding:16px;box-shadow:0 3px 12px rgba(0,0,0,.08);display:flex;gap:13px;align-items:flex-start}
+.tip-icon{font-size:1.9rem;flex-shrink:0;margin-top:2px}
+.tip-card h4{font-size:.88rem;font-weight:800;margin-bottom:4px}
+.tip-card p{font-size:.78rem;color:var(--muted);line-height:1.5}
+
+/* ══════════════════════════════════════════
+   VIDEO MODAL
+══════════════════════════════════════════ */
+#vid-modal{
+  display:none;position:fixed;inset:0;z-index:3000;
+  background:rgba(0,0,0,.92);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;flex-direction:column;
+  padding:16px;
+}
+#vid-modal.open{display:flex}
+#vid-modal-title{
+  color:#fff;font-size:1rem;font-weight:700;
+  margin-bottom:14px;text-align:center;max-width:700px;
+  text-shadow:0 2px 8px rgba(0,0,0,.6);
+}
+#vid-modal-frame{
+  width:100%;max-width:840px;aspect-ratio:16/9;
+  border:none;border-radius:14px;
+  box-shadow:0 24px 80px rgba(0,0,0,.7);
+}
+#vid-modal-close{
+  margin-top:18px;background:rgba(255,255,255,.12);
+  border:2px solid rgba(255,255,255,.3);color:#fff;
+  padding:10px 28px;border-radius:30px;font-size:.92rem;
+  font-weight:700;cursor:pointer;transition:all .22s;
+  backdrop-filter:blur(6px);
+}
+#vid-modal-close:hover{background:rgba(255,255,255,.22);transform:scale(1.04)}
+
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+#toasts{position:fixed;bottom:22px;right:22px;z-index:9999;display:flex;flex-direction:column;gap:9px;pointer-events:none}
+.toast{
+  background:#1a1a2e;color:#fff;
+  padding:12px 18px;border-radius:12px;
+  font-size:.85rem;font-weight:600;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+  animation:tIn .3s ease;pointer-events:auto;
+  display:flex;align-items:center;gap:9px;min-width:200px;
+}
+.toast.ok{background:#2e7d32}
+.toast.gold{background:#f9a825;color:#1a1a2e}
+@keyframes tIn{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:translateX(0)}}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:600px){
+  .nav-btn{padding:6px 9px;font-size:.72rem}
+  .book-grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr))}
+  .form-row{grid-template-columns:1fr}
+  .stats-bar{gap:14px}
+  .cta-card{padding:26px 14px}
+  .hero-appname{letter-spacing:-.5px}
+}
+
+/* ══════════════════════════════════════════
+   BOOK REAL COVERS
+══════════════════════════════════════════ */
+.book-cover{position:relative;height:148px;overflow:hidden}
+.book-real-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;z-index:1;
+  transition:transform .35s;
+}
+.book-card:hover .book-real-img{transform:scale(1.06)}
+.cover-overlay{
+  position:absolute;inset:0;z-index:2;
+  background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.1) 60%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:10px;
+}
+.cover-overlay .bc-title{font-size:.72rem;font-weight:800;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.9);line-height:1.3}
+.cover-overlay .bc-author{font-size:.62rem;color:rgba(255,255,255,.82);margin-top:3px}
+/* Read-online button on card */
+.read-btn{
+  display:block;width:calc(100% - 24px);margin:0 12px 10px;
+  padding:8px 10px;border:none;border-radius:8px;
+  font-size:.75rem;font-weight:800;cursor:pointer;
+  text-align:center;text-decoration:none;
+  transition:all .22s;
+}
+.read-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.read-btn.src-archive{background:#1a237e;color:#fff}
+.read-btn.src-google{background:#1565c0;color:#fff}
+.read-btn.src-play{background:#2e7d32;color:#fff}
+
+/* Read link inside modal */
+.modal-read-link{
+  display:flex;align-items:center;gap:10px;
+  background:#f0f4ff;border:2px solid #c5cae9;
+  border-radius:10px;padding:12px 14px;
+  margin-bottom:16px;text-decoration:none;
+  transition:all .22s;
+}
+.modal-read-link:hover{background:#e8eaf6;border-color:#7986cb;transform:translateY(-1px)}
+.modal-read-link .rl-icon{font-size:1.5rem;flex-shrink:0}
+.modal-read-link .rl-text strong{display:block;font-size:.88rem;font-weight:800;color:#1a237e}
+.modal-read-link .rl-text span{font-size:.75rem;color:#5c6bc0}
+.modal-read-link .rl-arrow{margin-left:auto;font-size:1.1rem;color:#7986cb}
+
+/* Fallback gradient covers (no ISBN) keep old style */
+.book-cover.no-img{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px}
+.book-cover.no-img .bc-title{position:relative;font-size:.74rem;font-weight:800;color:#fff;text-align:center;text-shadow:0 1px 8px rgba(0,0,0,.5);line-height:1.3}
+.book-cover.no-img .bc-author{position:relative;font-size:.63rem;color:rgba(255,255,255,.85);text-align:center;margin-top:6px}
+
+/* Section header with photo */
+.sec-header{background-size:cover;background-position:center;background-blend-mode:multiply}
+
+/* Reader name greeting */
+.reader-greeting{
+  display:inline-block;background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.3);border-radius:20px;
+  padding:5px 16px;font-size:.88rem;color:#fff;margin-top:10px;
+  backdrop-filter:blur(4px);
+}
+
+/* ══════════════════════════════════════════
+   PRINT / PDF
+══════════════════════════════════════════ */
+@media print{
+  #top-nav,#modal-bg,#toasts,.nav-btn,.export-btn,
+  .btn-main,.btn-sec,.reflexion-box textarea,
+  .review-form,.trivia-box,.ch-grid,
+  .mood-row,.share-row,button{display:none!important}
+  .page{display:block!important;padding-top:0!important}
+  .page:not(.active){display:none!important}
+  body{background:#fff}
+  .badge-card.locked{display:none!important}
+  .sec-header,.home-grad{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAVEGACIÓN ══════════ -->
+<nav id="top-nav">
+  <div id="nav-logo" onclick="go('home')">📚 Lectura Viva</div>
+  <div id="nav-links">
+    <button class="nav-btn nb-home" onclick="go('home')">🏠 Inicio</button>
+    <button class="nav-btn nb-doc"  onclick="go('doc')">👩‍🏫 Docentes</button>
+    <button class="nav-btn nb-est"  onclick="go('est')">👨‍🎓 Estudiantes</button>
+    <button class="nav-btn nb-fam"  onclick="go('fam')">👨‍👩‍👧‍👦 Familias</button>
+    <button class="nav-btn" id="nav-name-btn" style="background:linear-gradient(135deg,#f9a825,#f57f17);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" onclick="openNameModal()">👤 Mi nombre</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     PÁGINA DE INICIO
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <div class="hero">
+    <div class="hero-dots"></div>
+    <div class="hero-appname">📚 Lectura <span class="gold">Viva</span></div>
+    <div class="hero-subtitle">Escuela &amp; Familia que Inspiran</div>
+    <div class="hero-question">¿Buscas una forma fácil y agradable para leer con sentido en la escuela y la familia?</div>
+  </div>
+
+  <div class="banner">
+    <span class="banner-pulse">⚡</span>
+    Leer 14 minutos al día transforma tu vida.
+    <span class="banner-pulse">📘</span>
+  </div>
+
+  <div class="home-content">
+
+    <!-- ACCESOS -->
+    <div class="cta-grid">
+      <button class="cta-card cc-doc" onclick="go('doc')">
+        <span class="cta-icon">👩‍🏫</span>
+        Soy Docente
+        <div class="cta-desc">Liderazgo lector &amp; innovación</div>
+      </button>
+      <button class="cta-card cc-est" onclick="go('est')">
+        <span class="cta-icon">👨‍🎓</span>
+        Soy Estudiante
+        <div class="cta-desc">Libros, retos y medallas</div>
+      </button>
+      <button class="cta-card cc-fam" onclick="go('fam')">
+        <span class="cta-icon">👨‍👩‍👧‍👦</span>
+        Soy Familia
+        <div class="cta-desc">Lectura en casa con propósito</div>
+      </button>
+    </div>
+
+    <!-- VIDEO HOME -->
+    <div style="color:rgba(255,255,255,.7);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">🎬 Descubre el Poder de Leer 14 Minutos</div>
+    <div class="yt-thumb-wrap" onclick="playVideo('kspt6Ue1OGQ','4 Mentes Lectoras — El poder de leer 14 minutos')">
+      <img src="https://img.youtube.com/vi/kspt6Ue1OGQ/hqdefault.jpg" alt="Ver video: El poder de leer 14 minutos" loading="lazy">
+      <div class="yt-play-btn">
+        <div class="yt-play-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="yt-play-label">▶ Ver video</div>
+      </div>
+      <div class="yt-thumb-bar">
+        <span>📺</span>
+        <div><strong>4 Mentes Lectoras</strong> <span style="color:rgba(255,255,255,.7)">— El poder transformador de la lectura diaria</span></div>
+      </div>
+    </div>
+
+    <!-- FRASE DEL DÍA -->
+    <div class="daily-phrase">
+      <small>✨ Frase inspiradora del día</small>
+      <blockquote id="daily-q"></blockquote>
+      <cite id="daily-a"></cite>
+    </div>
+
+  </div>
+</div><!-- /page-home -->
+
+<!-- ══════════════════════════════════════════
+     PÁGINA DOCENTES
+══════════════════════════════════════════ -->
+<div id="page-doc" class="page">
+  <div class="sec-header sh-doc" style="background-image:linear-gradient(135deg,rgba(21,101,192,.9),rgba(0,172,193,.85)),url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1200&q=80');background-size:cover;background-position:center">
+    <h1>👩‍🏫 Espacio Docente Inspirador</h1>
+    <p>Un docente que lee, forma lectores para la vida. ¡Lidera con el ejemplo!</p>
+    <div class="reader-greeting" style="display:none"></div>
+  </div>
+  <div class="content">
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat"><div class="stat-n" id="dp">0</div><div class="stat-l">📄 Páginas</div></div>
+      <div class="stat"><div class="stat-n" id="dm">0</div><div class="stat-l">⏱ Minutos</div></div>
+      <div class="stat"><div class="stat-n" id="db">0</div><div class="stat-l">📚 Libros</div></div>
+      <button class="export-btn" onclick="exportPDF('doc')">🖨 Exportar PDF</button>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="sec-title" style="color:#1565c0">🎬 Video: 10 Libros Inspiradores para Docentes</div>
+    <div class="yt-wrap">
+      <div class="yt-thumb-wrap" onclick="playVideo('z2TwAxvFUMQ','10 Libros Inspiradores para Docentes')">
+        <img src="https://img.youtube.com/vi/z2TwAxvFUMQ/hqdefault.jpg" alt="Ver video: 10 libros para docentes" loading="lazy">
+        <div class="yt-play-btn">
+          <div class="yt-play-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <div class="yt-play-label">▶ Ver video</div>
+        </div>
+        <div class="yt-thumb-bar">
+          <span>📺</span>
+          <div><strong>10 Libros Inspiradores para Docentes</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIBROS -->
+    <div class="sec-title" style="color:#1565c0">📚 Lecturas Inspiradoras</div>
+    <div class="book-grid" id="grid-doc"></div>
+
+    <!-- INSIGNIAS -->
+    <div class="sec-title" style="color:#1565c0">🏅 Mis Insignias</div>
+    <div class="badges-grid" id="badges-doc"></div>
+
+    <!-- MI LECTURA DEL MES -->
+    <div class="sec-title" style="color:#1565c0">📝 Mi Lectura del Mes</div>
+    <div class="reflexion-box">
+      <p>Registra tus reflexiones, ideas clave y aprendizajes del libro que estás leyendo este mes. Puedes copiarlas y compartirlas con tus colegas.</p>
+      <textarea id="doc-ref" placeholder="Escribe aquí tus ideas, reflexiones y lecciones aprendidas este mes..."></textarea>
+      <div class="share-row">
+        <button class="btn-sec" onclick="saveRef()">💾 Guardar</button>
+        <button class="btn-sec" onclick="copyRef()">📋 Copiar y compartir</button>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /page-doc -->
+
+<!-- ══════════════════════════════════════════
+     PÁGINA ESTUDIANTES
+══════════════════════════════════════════ -->
+<div id="page-est" class="page">
+  <div class="sec-header sh-est" style="background-image:linear-gradient(135deg,rgba(230,81,0,.9),rgba(255,160,0,.85)),url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80');background-size:cover;background-position:center">
+    <h1>👨‍🎓 Espacio Estudiante Lector</h1>
+    <p>¡Lee, descubre mundos y desbloquea tu superpoder más poderoso!</p>
+    <div class="reader-greeting" style="display:none"></div>
+  </div>
+  <div class="content">
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat"><div class="stat-n" id="ep">0</div><div class="stat-l">📄 Páginas</div></div>
+      <div class="stat"><div class="stat-n" id="em">0</div><div class="stat-l">⏱ Minutos</div></div>
+      <div class="stat"><div class="stat-n" id="eb">0</div><div class="stat-l">📚 Libros</div></div>
+      <div class="stat"><div class="stat-n" id="es">0</div><div class="stat-l">⭐ Puntos</div></div>
+      <button class="export-btn" onclick="exportPDF('est')">🖨 Exportar PDF</button>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="sec-title" style="color:#e65100">🎬 Video: 10 Libros que Cambiarán Tu Vida</div>
+    <div class="yt-wrap">
+      <div class="yt-thumb-wrap" onclick="playVideo('CxldFMtFHzk','10 Libros que Cambiarán Tu Vida — Para Estudiantes')">
+        <img src="https://img.youtube.com/vi/CxldFMtFHzk/hqdefault.jpg" alt="Ver video: 10 libros para estudiantes" loading="lazy">
+        <div class="yt-play-btn">
+          <div class="yt-play-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <div class="yt-play-label">▶ Ver video</div>
+        </div>
+        <div class="yt-thumb-bar">
+          <span>📺</span>
+          <div><strong>10 Libros que Cambiarán Tu Vida</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RETOS -->
+    <div class="sec-title" style="color:#e65100">🔥 Retos de la Semana</div>
+    <div class="ch-grid" id="ch-est"></div>
+
+    <!-- LIBROS -->
+    <div class="sec-title" style="color:#e65100">📚 Mis Lecturas Motivadoras</div>
+    <div class="book-grid" id="grid-est"></div>
+
+    <!-- INSIGNIAS -->
+    <div class="sec-title" style="color:#e65100">🏅 Mis Medallas</div>
+    <div class="badges-grid" id="badges-est"></div>
+
+    <!-- TRIVIA -->
+    <div class="sec-title" style="color:#e65100">🎯 Trivia Lectora</div>
+    <div class="trivia-box">
+      <div class="trivia-score-bar">
+        <span>✅ Correctas: <b id="tc">0</b></span>
+        <span>🎯 Intentos: <b id="ta">0</b></span>
+        <span>🏆 Puntos: <b id="tp">0</b></span>
+      </div>
+      <div id="trivia-area"></div>
+    </div>
+
+    <!-- COMPARTE TU INSPIRACIÓN -->
+    <div class="sec-title" style="color:#e65100">💬 Comparte tu Inspiración</div>
+    <div class="review-form">
+      <p>¿Qué libro te marcó? Escribe tu mini reseña, elige tu estado de ánimo y compártela con todos.</p>
+      <select id="rev-book"><option value="">-- Selecciona el libro --</option></select>
+      <div style="font-size:.84rem;font-weight:700;margin-bottom:6px">¿Cómo te hizo sentir?</div>
+      <div class="mood-row" id="moods">
+        <button class="mood-btn" data-m="🤩" onclick="pickMood(this)">🤩</button>
+        <button class="mood-btn" data-m="😊" onclick="pickMood(this)">😊</button>
+        <button class="mood-btn" data-m="🤔" onclick="pickMood(this)">🤔</button>
+        <button class="mood-btn" data-m="😢" onclick="pickMood(this)">😢</button>
+        <button class="mood-btn" data-m="🔥" onclick="pickMood(this)">🔥</button>
+        <button class="mood-btn" data-m="💡" onclick="pickMood(this)">💡</button>
+        <button class="mood-btn" data-m="😮" onclick="pickMood(this)">😮</button>
+      </div>
+      <div style="font-size:.84rem;font-weight:700;margin-bottom:5px">Mi valoración</div>
+      <div class="star-row" id="rev-stars"></div>
+      <textarea id="rev-txt" placeholder="¡Escribe tu reseña! ¿Qué aprendiste? ¿A quién se lo recomendarías y por qué?" rows="3" style="width:100%;border:2px solid #e8e8e8;border-radius:10px;padding:10px;font-family:inherit;font-size:.88rem;resize:vertical;margin-top:10px;"></textarea>
+      <button class="btn-main" style="background:var(--est-grad)" onclick="submitReview()">✨ Publicar mi reseña</button>
+    </div>
+    <div id="rev-list"></div>
+
+  </div>
+</div><!-- /page-est -->
+
+<!-- ══════════════════════════════════════════
+     PÁGINA FAMILIAS
+══════════════════════════════════════════ -->
+<div id="page-fam" class="page">
+  <div class="sec-header sh-fam" style="background-image:linear-gradient(135deg,rgba(27,94,32,.9),rgba(67,160,71,.85)),url('https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?w=1200&q=80');background-size:cover;background-position:center">
+    <h1>👨‍👩‍👧‍👦 Espacio Familia Lectora</h1>
+    <p>Las familias que leen juntas, crecen juntas. ¡Transforma tu hogar!</p>
+    <div class="reader-greeting" style="display:none"></div>
+  </div>
+  <div class="content">
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat"><div class="stat-n" id="fp">0</div><div class="stat-l">📄 Páginas</div></div>
+      <div class="stat"><div class="stat-n" id="fm">0</div><div class="stat-l">⏱ Minutos</div></div>
+      <div class="stat"><div class="stat-n" id="fb">0</div><div class="stat-l">📚 Libros</div></div>
+      <button class="export-btn" onclick="exportPDF('fam')">🖨 Exportar PDF</button>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="sec-title" style="color:#2e7d32">🎬 Video: 10 Libros para Inspirar a tu Familia</div>
+    <div class="yt-wrap">
+      <div class="yt-thumb-wrap" onclick="playVideo('inbwB5jMXy8','10 Libros para Inspirar a tu Familia')">
+        <img src="https://img.youtube.com/vi/inbwB5jMXy8/hqdefault.jpg" alt="Ver video: 10 libros para familias" loading="lazy">
+        <div class="yt-play-btn">
+          <div class="yt-play-circle"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          <div class="yt-play-label">▶ Ver video</div>
+        </div>
+        <div class="yt-thumb-bar">
+          <span>📺</span>
+          <div><strong>10 Libros para Inspirar a tu Familia</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- META FAMILIAR -->
+    <div class="sec-title" style="color:#2e7d32">🎯 Meta de Lectura Familiar</div>
+    <div class="fam-goal">
+      <p>Establece una meta semanal de páginas para tu familia y registra el avance. ¡Celebren juntos cada logro!</p>
+      <div class="form-row" style="margin-bottom:12px">
+        <div class="fg" style="margin:0"><label>Meta (páginas/semana)</label><input type="number" id="fg-t" placeholder="Ej: 70" min="1"></div>
+        <div class="fg" style="margin:0"><label>Leídas esta semana</label><input type="number" id="fg-c" placeholder="Ej: 35" min="0"></div>
+      </div>
+      <div class="goal-track"><div class="goal-fill" id="goal-bar" style="width:0%" data-pct="0%"></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px">
+        <button class="btn-sec" onclick="updateGoal()">📊 Actualizar progreso</button>
+        <span id="goal-msg" style="font-size:.85rem;color:var(--muted)"></span>
+      </div>
+    </div>
+
+    <!-- LIBROS -->
+    <div class="sec-title" style="color:#2e7d32">📚 Lecturas Recomendadas para la Familia</div>
+    <div class="book-grid" id="grid-fam"></div>
+
+    <!-- INSIGNIAS -->
+    <div class="sec-title" style="color:#2e7d32">🏅 Logros Familiares</div>
+    <div class="badges-grid" id="badges-fam"></div>
+
+    <!-- TIPS -->
+    <div class="sec-title" style="color:#2e7d32">💡 Tips de Lectura en Casa</div>
+    <div class="tips-grid" id="tips"></div>
+
+    <!-- RETOS -->
+    <div class="sec-title" style="color:#2e7d32">🔥 Retos Familiares Semanales</div>
+    <div class="ch-grid" id="ch-fam"></div>
+
+  </div>
+</div><!-- /page-fam -->
+
+<!-- ══════════ MODAL AVANCE DE LECTURA ══════════ -->
+<div id="modal-bg" onclick="bgClose(event)">
+  <div id="modal-box">
+    <div class="modal-head">
+      <h2>📖 Registrar Avance de Lectura</h2>
+      <button class="modal-x" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-banner cv0" id="m-banner">
+      <b id="m-title"></b>
+      <small id="m-author"></small>
+    </div>
+    <div class="modal-body">
+      <a id="m-read-link" class="modal-read-link" href="#" target="_blank" rel="noopener" style="display:none">
+        <span class="rl-icon">📖</span>
+        <div class="rl-text">
+          <strong></strong>
+          <span></span>
+        </div>
+        <span class="rl-arrow">→</span>
+      </a>
+      <div class="form-row">
+        <div class="fg">
+          <label>📄 Páginas leídas hoy</label>
+          <input type="number" id="m-p" placeholder="Ej: 15" min="0">
+        </div>
+        <div class="fg">
+          <label>⏱ Minutos invertidos</label>
+          <input type="number" id="m-m" placeholder="Ej: 20" min="0">
+        </div>
+      </div>
+      <div class="fg">
+        <label>💡 Ideas memorables e inspiradoras</label>
+        <textarea id="m-i" placeholder="¿Qué frase, idea o momento del libro te marcó hoy?"></textarea>
+      </div>
+      <div class="fg">
+        <label>🚀 Lecciones aprendidas para mi crecimiento</label>
+        <textarea id="m-l" placeholder="¿Qué aprendiste que puedes aplicar en tu vida a partir de hoy?"></textarea>
+      </div>
+      <div class="fg">
+        <label>⭐ Mi valoración del libro</label>
+        <div class="star-row" id="m-stars"></div>
+      </div>
+      <button class="btn-main" id="m-save" onclick="saveEntry()">✅ Guardar avance del día</button>
+      <div style="margin-top:22px">
+        <div style="font-size:.88rem;font-weight:800;color:#333;margin-bottom:10px">📋 Mi historial de lectura</div>
+        <div id="m-hist"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODAL NOMBRE ══════════ -->
+<div id="name-modal-bg" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:4000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)" onclick="closeNameModal(event)">
+  <div style="background:#fff;border-radius:22px;width:100%;max-width:420px;padding:32px;box-shadow:0 28px 72px rgba(0,0,0,.35);animation:modalIn .32s ease both;text-align:center">
+    <div style="font-size:3rem;margin-bottom:12px">👤</div>
+    <h2 style="font-size:1.3rem;font-weight:900;margin-bottom:8px">¿Cómo te llamas?</h2>
+    <p style="font-size:.88rem;color:#666;margin-bottom:20px;line-height:1.5">Tu nombre aparecerá en tu perfil lector y en el reporte de avances.</p>
+    <input id="name-input" type="text" placeholder="Escribe tu nombre aquí..."
+      style="width:100%;border:2px solid #e0e0e0;border-radius:12px;padding:13px 16px;font-size:1rem;font-family:inherit;margin-bottom:16px;transition:border-color .2s"
+      onfocus="this.style.borderColor='#6a11cb'" onblur="this.style.borderColor='#e0e0e0'"
+      onkeydown="if(event.key==='Enter')saveName()">
+    <button onclick="saveName()" style="width:100%;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#6a11cb,#e0562e);color:#fff;font-size:1rem;font-weight:800;cursor:pointer;transition:all .22s" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter=''">
+      ✅ Guardar mi nombre
+    </button>
+    <button onclick="closeNameModal()" style="margin-top:10px;background:none;border:none;color:#aaa;cursor:pointer;font-size:.85rem">Ahora no</button>
+  </div>
+</div>
+
+<!-- ══════════ TOASTS ══════════ -->
+<div id="toasts"></div>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── DATA ───────────────────────────────── */
+const BOOKS = {
+  doc:[
+    {id:'d1', t:'El éxito es una decisión',              a:'David Fischman',           isbn:null,             link:'https://books.google.com/books/about/El_%C3%A9xito_es_una_decisi%C3%B3n.html?id=6R3GAQAAQBAJ', src:'Google Books'},
+    {id:'d2', t:'La actitud mental positiva',            a:'Napoleón Hill',             isbn:'9780671743000',  link:'https://archive.org/details/laactitudmentalp0000hill',                                        src:'Archive.org'},
+    {id:'d3', t:'Cómo hacer que te pasen cosas buenas', a:'Marian Rojas Estapé',       isbn:'9788408201595',  link:'https://books.google.com/books/about/C%C3%B3mo_hacer_que_te_pasen_cosas_buenas.html?id=3IGs0AEACAAJ', src:'Google Books'},
+    {id:'d4', t:'El poder está dentro de ti',           a:'Louise L. Hay',             isbn:'9788479531072',  link:'https://archive.org/details/elpoderestadentr0000hayl',                                        src:'Archive.org'},
+    {id:'d5', t:'Deja de ser tú',                       a:'Joe Dispenza',              isbn:'9788479539382',  link:'https://archive.org/details/deja-de-ser-tu-joe-dispenza',                                     src:'Archive.org'},
+    {id:'d6', t:'Creatividad para el cambio',           a:'Liliana Galván',            isbn:null,             link:'https://books.google.com/books/about/Creatividad_para_el_cambio.html?id=c9KEDwAAQBAJ',        src:'Google Books'},
+    {id:'d7', t:'Crear hoy la escuela del mañana',      a:'Richard Gerver',            isbn:'9788499983257',  link:'https://books.google.com/books/about/Crear_hoy_la_escuela_de_ma%C3%B1ana_la_educa.html?id=8nXHDwAAQBAJ', src:'Google Books'},
+    {id:'d8', t:'Crear o morir',                        a:'Andrés Oppenheimer',        isbn:'9780385350266',  link:'https://archive.org/details/crearomorirlaesp0000oppe',                                        src:'Archive.org'},
+    {id:'d9', t:'Viaje a la escuela del futuro',        a:'Alfredo Calvo',             isbn:null,             link:'https://play.google.com/store/books/details?id=gBtqCwAAQBAJ',                                 src:'Google Play'},
+    {id:'d10',t:'Dirigentes del mundo futuro',          a:'Carlos Cuauhtémoc Sánchez', isbn:null,             link:'https://archive.org/details/dirigentesdelmun0000sanc',                                        src:'Archive.org'},
+  ],
+  est:[
+    {id:'e1', t:'Matilda',                              a:'Roald Dahl',                isbn:'9780142410370',  link:'https://archive.org/details/matilda0000dahl_c9w5',                                            src:'Archive.org'},
+    {id:'e2', t:'El alquimista',                        a:'Paulo Coelho',              isbn:'9780062315007',  link:'https://archive.org/details/elalquimista0000coel',                                            src:'Archive.org'},
+    {id:'e3', t:'Fortunato',                            a:'Luis Bernal Pinilla',       isbn:null,             link:'https://books.google.com/books/about/Fortunato.html?id=dwbxAAAACAAJ',                         src:'Google Books'},
+    {id:'e4', t:'Charlie y la fábrica de chocolates',  a:'Roald Dahl',                isbn:'9780142410318',  link:'https://archive.org/details/charlieylafabric00dahl',                                          src:'Archive.org'},
+    {id:'e5', t:'El velero de cristal',                 a:'José Mauro de Vasconcelos', isbn:null,             link:'https://books.google.com/books/about/El_velero_de_cristal.html?id=Pn4iEAAAQBAJ',             src:'Google Books'},
+    {id:'e6', t:'El secreto de las siete semillas',    a:'David Fischman',            isbn:null,             link:'https://archive.org/details/elsecretodelassi0000davi',                                        src:'Archive.org'},
+    {id:'e7', t:'Niño rico, niño listo',               a:'Robert Kiyosaki',           isbn:'9781612680507',  link:'https://archive.org/details/112-nino-rico-nino-listo-robert-t-kiyosaki',                      src:'Archive.org'},
+    {id:'e8', t:'Ensayo sobre la ceguera',             a:'José Saramago',             isbn:'9780156007757',  link:'https://archive.org/details/ensayosobrelaceg0000sara',                                        src:'Archive.org'},
+    {id:'e9', t:'El infierno',                         a:'Dan Brown',                 isbn:'9780385537858',  link:'https://archive.org/details/infernonovel0000brow_g8d6',                                        src:'Archive.org'},
+    {id:'e10',t:'Mi planta de naranja lima',           a:'José Mauro de Vasconcelos', isbn:'9788420634258',  link:'https://archive.org/details/miplantadenaranj0000vasc',                                        src:'Archive.org'},
+  ],
+  fam:[
+    {id:'f1', t:'Despierta el genio financiero en tus hijos', a:'Robert Kiyosaki',          isbn:null,            link:'https://archive.org/details/3.-despierta-el-genio-financiero-de-tus-hijos-robert-kiyosaki', src:'Archive.org'},
+    {id:'f2', t:'Los secretos de la mente millonaria',        a:'Harv Eker',                isbn:'9780060763282', link:'https://books.google.com/books?id=_2ssDwAAQBAJ',                                              src:'Google Books'},
+    {id:'f3', t:'Negocios del siglo XXI',                     a:'Robert Kiyosaki',          isbn:null,            link:'https://archive.org/details/elnegociodelsigl0000kiyo',                                       src:'Archive.org'},
+    {id:'f4', t:'El vendedor más grande del mundo',           a:'Og Mandino',               isbn:'9780553277579', link:'https://archive.org/details/elvendedormsgran0000mand_i0h6',                                  src:'Archive.org'},
+    {id:'f5', t:'Piense y hágase rico',                       a:'Napoleón Hill',            isbn:'9781585424337', link:'https://archive.org/details/pienseyhagaseric0000hill_n8p1',                                  src:'Archive.org'},
+    {id:'f6', t:'Lea y hágase rico',                          a:'Burke Hedges',             isbn:null,            link:'https://books.google.com/books?id=lgXTAAAACAAJ',                                             src:'Google Books'},
+    {id:'f7', t:'La última oportunidad',                      a:'Carlos Cuauhtémoc Sánchez',isbn:null,            link:'https://archive.org/details/laltimaoportunid0000snch',                                       src:'Archive.org'},
+    {id:'f8', t:'Padre rico, padre pobre',                    a:'Robert Kiyosaki',          isbn:'9781612680194', link:'https://archive.org/details/1.-padre-rico-padre-pobre-robert-kiyosaki',                      src:'Archive.org'},
+    {id:'f9', t:'Mientras respire',                           a:'Carlos Cuauhtémoc Sánchez',isbn:null,            link:'https://archive.org/details/mientrasrespire0000snch',                                         src:'Archive.org'},
+    {id:'f10',t:'El hombre más rico de Babilonia',            a:'George Samuel Clason',     isbn:'9780451205360', link:'https://archive.org/details/elhombremsricode0000clas',                                       src:'Archive.org'},
+  ],
+};
+
+const BADGES = {
+  doc:[
+    {id:'bd1',icon:'🌟',n:'Docente Inspirador',  d:'Registra tu primer avance', c:s=>s.b>=1},
+    {id:'bd2',icon:'📖',n:'Mentor Lector',        d:'Lee 100 páginas en total',  c:s=>s.p>=100},
+    {id:'bd3',icon:'🚀',n:'Innovador Educativo',  d:'Lee 500 páginas en total',  c:s=>s.p>=500},
+    {id:'bd4',icon:'🏆',n:'Maestro de Libros',    d:'Inicia 5 libros distintos', c:s=>s.b>=5},
+    {id:'bd5',icon:'⏱', n:'Constancia de Oro',   d:'Invierte 200 minutos',      c:s=>s.m>=200},
+  ],
+  est:[
+    {id:'be1',icon:'🐛',n:'Gusano Lector',    d:'Registra tu primer libro',         c:s=>s.b>=1},
+    {id:'be2',icon:'⭐',n:'Lector Estrella',  d:'Acumula 50 páginas leídas',        c:s=>s.p>=50},
+    {id:'be3',icon:'🦋',n:'Súper Lector',     d:'Lee 200 páginas en total',         c:s=>s.p>=200},
+    {id:'be4',icon:'🎯',n:'Campeón de Trivia',d:'5 respuestas correctas en trivia', c:s=>(gl('tc')||0)>=5},
+    {id:'be5',icon:'💬',n:'Reseñador',        d:'Publica 3 reseñas de libros',      c:s=>getRevs().length>=3},
+  ],
+  fam:[
+    {id:'bf1',icon:'🏡',n:'Hogar Lector',        d:'Registra tu primer avance',      c:s=>s.b>=1},
+    {id:'bf2',icon:'❤️',n:'Familia Inspirada',   d:'Lee 100 páginas en familia',     c:s=>s.p>=100},
+    {id:'bf3',icon:'🌈',n:'Familia Transformada',d:'Lee 300 páginas en familia',     c:s=>s.p>=300},
+    {id:'bf4',icon:'🎉',n:'Meta Cumplida',       d:'Alcanza tu meta semanal',        c:s=>goalPct()>=100},
+    {id:'bf5',icon:'📚',n:'Comunidad Lectora',   d:'Inicia 4 libros distintos',      c:s=>s.b>=4},
+  ],
+};
+
+const CHALLENGES = {
+  est:[
+    {t:'Reto 14 Minutos',   d:'Lee al menos 14 minutos seguidos hoy sin ninguna distracción.',      pts:10, icon:'⏱', c:'#e65100'},
+    {t:'Caza Palabras',     d:'Anota 5 palabras nuevas que encuentres en tu lectura de hoy.',       pts:15, icon:'🔍', c:'#6a1b9a'},
+    {t:'Mini Reseña',       d:'Escribe en 3 líneas de qué trata el capítulo que leíste hoy.',      pts:20, icon:'✏️', c:'#1565c0'},
+    {t:'Recomienda',        d:'Recomienda tu libro favorito a un compañero o compañera hoy.',       pts:25, icon:'💬', c:'#2e7d32'},
+    {t:'Dibuja una escena', d:'Ilustra tu escena favorita del libro que estás leyendo.',            pts:30, icon:'🎨', c:'#880e4f'},
+    {t:'Pregunta al autor', d:'Escribe 3 preguntas que le harías al autor de tu libro favorito.',  pts:20, icon:'🤔', c:'#004d40'},
+  ],
+  fam:[
+    {t:'Noche de Lectura',  d:'Lean juntos 10 minutos antes de dormir esta noche.',                pts:20, icon:'🌙', c:'#2e7d32'},
+    {t:'Club de Desayuno',  d:'Al desayunar, cada uno comparte algo de lo que está leyendo.',      pts:15, icon:'☕', c:'#1565c0'},
+    {t:'Visita la Biblio',  d:'Visiten juntos la biblioteca local o explórenla en línea.',          pts:30, icon:'🏛️', c:'#880e4f'},
+    {t:'Cuenta el Cuento',  d:'Un adulto narra un fragmento de su libro a los niños de la familia.',pts:25,icon:'📢', c:'#e65100'},
+    {t:'Meta de Páginas',   d:'Fijen juntos cuántas páginas leerá cada miembro esta semana.',      pts:20, icon:'🎯', c:'#6a1b9a'},
+    {t:'Cine Lector',       d:'Busquen una película basada en algún libro que ya hayan leído.',    pts:25, icon:'🎬', c:'#004d40'},
+  ],
+};
+
+const TIPS=[
+  {icon:'📍',t:'Rincón de lectura', d:'Elige un espacio cómodo, iluminado y tranquilo en casa exclusivo para leer.'},
+  {icon:'📅',t:'Horario fijo',      d:'Establece 14 minutos diarios a la misma hora para construir el hábito lector.'},
+  {icon:'📵',t:'Sin pantallas',     d:'Apaga el televisor y silencia el teléfono durante el tiempo de lectura.'},
+  {icon:'💬',t:'Habla sobre libros',d:'Pregunta a tus hijos: ¿Qué pasó hoy en tu lectura? ¿Qué personaje te gustó?'},
+  {icon:'🎁',t:'Regala libros',     d:'En cumpleaños y fechas especiales, incluye libros entre los obsequios.'},
+  {icon:'🌟',t:'Sé el ejemplo',     d:'Que te vean leer. Los hijos imitan a sus padres. ¡Tú eres su modelo lector!'},
+];
+
+const PHRASES=[
+  {q:'Leer es soñar con los ojos abiertos.',                               a:'Jorge Luis Borges'},
+  {q:'Un lector vive mil vidas antes de morir. Quien no lee vive solo una.',a:'George R.R. Martin'},
+  {q:'No hay amigo más leal que un libro.',                                 a:'Ernest Hemingway'},
+  {q:'Los libros son espejos: solo ves en ellos lo que ya llevas dentro.',  a:'Carlos Ruiz Zafón'},
+  {q:'Cuanto más lees, más cosas sabes. Cuanto más aprendes, más lugares conoces.',a:'Dr. Seuss'},
+  {q:'El que lee mucho y anda mucho, ve mucho y sabe mucho.',              a:'Miguel de Cervantes'},
+  {q:'Hoy un lector, mañana un líder.',                                     a:'Margaret Fuller'},
+  {q:'Leer 14 minutos al día y en un año habrás leído 5 libros que transformarán tu vida.',a:'Anónimo'},
+  {q:'Una familia que lee junta, crece junta.',                              a:'Anónimo'},
+  {q:'La educación es el arma más poderosa para cambiar el mundo.',         a:'Nelson Mandela'},
+  {q:'Donde un maestro lleva un libro, nace el futuro.',                    a:'Anónimo'},
+  {q:'Los grandes hombres y mujeres leen grandes libros.',                  a:'Anónimo'},
+  {q:'El aprendizaje nunca agota la mente.',                                a:'Leonardo da Vinci'},
+  {q:'Cada página que lees es un peldaño hacia quien quieres ser.',         a:'Anónimo'},
+  {q:'Invertir en conocimiento siempre paga el mejor interés.',             a:'Benjamin Franklin'},
+];
+
+const TRIVIA=[
+  {q:'¿Quién escribió "El alquimista"?',               opts:['Paulo Coelho','Roald Dahl','Dan Brown','José Saramago'],     a:0},
+  {q:'¿Cuál es la niña prodigio de Roald Dahl?',       opts:['Matilda','Sofía','Julieta','Valentina'],                    a:0},
+  {q:'"Padre rico, padre pobre" es de:',               opts:['Robert Kiyosaki','Og Mandino','Napoleón Hill','Harv Eker'],  a:0},
+  {q:'"Piense y hágase rico" fue escrito por:',        opts:['Napoleón Hill','Burke Hedges','Joe Dispenza','C.C. Sánchez'],a:0},
+  {q:'¿Quién escribió "Ensayo sobre la ceguera"?',     opts:['José Saramago','Dan Brown','Paulo Coelho','R. Kiyosaki'],   a:0},
+  {q:'"El hombre más rico de Babilonia" es de:',       opts:['George Samuel Clason','Og Mandino','Harv Eker','B. Hedges'],a:0},
+  {q:'"Los secretos de la mente millonaria" es de:',   opts:['Harv Eker','Robert Kiyosaki','Napoleón Hill','Og Mandino'], a:0},
+  {q:'¿Qué libro habla de un pastor en busca de su leyenda personal?', opts:['El alquimista','Matilda','Fortunato','El infierno'],a:0},
+  {q:'"Crear hoy la escuela del mañana" es de:',       opts:['Richard Gerver','Alfredo Calvo','A. Oppenheimer','L. Galván'],a:0},
+  {q:'"El infierno" pertenece a:',                     opts:['Dan Brown','José Saramago','Paulo Coelho','D. Fischman'],   a:0},
+];
+
+/* ── STATE ──────────────────────────────── */
+let modal = null; // {id, sec, ci}
+let mRat  = 0;
+let rRat  = 0;
+let rMood = '';
+let tIdx  = 0;
+let tLock = false;
+
+/* ── STORAGE ────────────────────────────── */
+const K = k => 'lv2_'+k;
+function gl(k){ try{return JSON.parse(localStorage.getItem(K(k)))}catch{return null} }
+function sl(k,v){ localStorage.setItem(K(k),JSON.stringify(v)) }
+function bd(id){ return gl('b_'+id)||{pages:0,mins:0,rat:0,entries:[]} }
+function sb(id,v){ sl('b_'+id,v) }
+function getRevs(){ return gl('revs')||[] }
+function saveRevs(r){ sl('revs',r) }
+
+/* ── NAVIGATE ───────────────────────────── */
+function go(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(page==='doc') initDoc();
+  if(page==='est') initEst();
+  if(page==='fam') initFam();
+}
+
+/* ── STATS ──────────────────────────────── */
+function stats(sec){
+  let p=0,m=0,b=0;
+  BOOKS[sec].forEach(bk=>{
+    const d=bd(bk.id);
+    p+=d.pages; m+=d.mins;
+    if(d.entries.length) b++;
+  });
+  return {p,m,b};
+}
+function goalPct(){
+  const t=parseInt(gl('fg_t')||0), c=parseInt(gl('fg_c')||0);
+  return (!t)?0:Math.min(100,Math.round(c/t*100));
+}
+
+/* ── RENDER BOOKS ───────────────────────── */
+function renderBooks(sec){
+  const g=document.getElementById('grid-'+sec);
+  if(!g) return;
+  g.innerHTML='';
+  BOOKS[sec].forEach((bk,i)=>{
+    const d=bd(bk.id);
+    const pct=Math.min(100,Math.round(d.pages/200*100));
+    const card=document.createElement('div');
+    card.className='book-card';
+    card.onclick=()=>openModal(bk.id,sec,i);
+    const coverHTML = bk.isbn
+      ? `<div class="book-cover cv${i%10}">
+           <img class="book-real-img"
+             src="https://covers.openlibrary.org/b/isbn/${bk.isbn}-M.jpg"
+             alt="${bk.t}" loading="lazy"
+             onerror="this.closest('.book-cover').classList.add('no-img');this.remove()">
+           <div class="cover-overlay">
+             <div class="bc-title">${bk.t}</div>
+             <div class="bc-author">${bk.a}</div>
+           </div>
+         </div>`
+      : `<div class="book-cover cv${i%10} no-img">
+           <div class="bc-title">${bk.t}</div>
+           <div class="bc-author">${bk.a}</div>
+         </div>`;
+    card.innerHTML=`
+      ${d.entries.length?'<div class="book-done">📖 Iniciado</div>':''}
+      ${coverHTML}
+      <div class="book-meta">
+        <h4>${bk.t}</h4>
+        <p>${bk.a}</p>
+        ${d.pages?`<div class="book-pbar"><div class="book-pfill" style="width:${pct}%"></div></div>
+          <div class="book-stats">📄 ${d.pages} págs &nbsp;⏱ ${d.mins} min</div>`:''}
+        ${d.rat?`<div class="book-stars">${'⭐'.repeat(d.rat)}</div>`:''}
+      </div>
+      ${bk.link?`<a class="read-btn src-${(bk.src||'').toLowerCase().split(' ')[0]||'google'}"
+          href="${bk.link}" target="_blank" rel="noopener"
+          onclick="event.stopPropagation()">
+          📖 Leer en línea · ${bk.src}
+        </a>`:''}`;
+    g.appendChild(card);
+  });
+}
+
+/* ── RENDER BADGES ──────────────────────── */
+function renderBadges(sec){
+  const g=document.getElementById('badges-'+sec);
+  if(!g) return;
+  const s=stats(sec);
+  const prev=gl('eb_'+sec)||[];
+  const newEarned=[];
+  g.innerHTML='';
+  BADGES[sec].forEach(bd=>{
+    const earned=bd.c(s);
+    if(earned&&!prev.includes(bd.id)) newEarned.push(bd);
+    const div=document.createElement('div');
+    div.className='badge-card '+(earned?'earned':'locked');
+    div.innerHTML=`<span class="badge-icon">${bd.icon}</span>
+      <div class="badge-name">${bd.n}</div>
+      <div class="badge-desc">${bd.d}</div>
+      ${earned?'<div class="badge-earned-tag">✅ ¡Ganada!</div>':''}`;
+    g.appendChild(div);
+  });
+  if(newEarned.length){
+    const all=[...prev,...newEarned.map(b=>b.id)];
+    sl('eb_'+sec,all);
+    newEarned.forEach(b=>toast(`🏅 ¡Insignia desbloqueada! ${b.icon} ${b.n}`,'gold'));
+  }
+}
+
+/* ── UPDATE STATS BAR ───────────────────── */
+function updateStats(sec){
+  const s=stats(sec);
+  if(sec==='doc'){set('dp',s.p);set('dm',s.m);set('db',s.b)}
+  if(sec==='est'){
+    set('ep',s.p);set('em',s.m);set('eb',s.b);
+    set('es',s.p*2+s.m+(gl('tp')||0));
+  }
+  if(sec==='fam'){set('fp',s.p);set('fm',s.m);set('fb',s.b)}
+}
+function set(id,v){ const e=document.getElementById(id); if(e) e.textContent=v }
+
+/* ── MODAL ──────────────────────────────── */
+function openModal(id,sec,ci){
+  const bk=BOOKS[sec].find(b=>b.id===id);
+  const i=ci!==undefined?ci:BOOKS[sec].findIndex(b=>b.id===id);
+  modal={id,sec,ci:i};
+  mRat=0;
+  document.getElementById('m-title').textContent=bk.t;
+  document.getElementById('m-author').textContent=bk.a;
+  const banner=document.getElementById('m-banner');
+  banner.className='modal-banner cv'+(i%10);
+  ['m-p','m-m','m-i','m-l'].forEach(x=>document.getElementById(x).value='');
+  buildStars('m-stars',5,v=>mRat=v,'m-stars');
+  const d=bd(id);
+  if(d.rat) setStars('m-stars',d.rat);
+  mRat=d.rat||0;
+  const cols={doc:'#1565c0',est:'#e65100',fam:'#2e7d32'};
+  document.getElementById('m-save').style.background=cols[sec]||'#6a11cb';
+
+  // Reading link
+  const rlEl=document.getElementById('m-read-link');
+  if(bk.link){
+    rlEl.href=bk.link;
+    rlEl.querySelector('.rl-text strong').textContent='Leer "'+bk.t+'" en línea';
+    rlEl.querySelector('.rl-text span').textContent=bk.src+' · Acceso virtual gratuito';
+    rlEl.style.display='flex';
+  } else {
+    rlEl.style.display='none';
+  }
+
+  renderHist(id);
+  document.getElementById('modal-bg').classList.add('open');
+}
+function bgClose(e){ if(e.target===document.getElementById('modal-bg')) closeModal() }
+function closeModal(){ document.getElementById('modal-bg').classList.remove('open'); modal=null }
+
+function buildStars(containerId,n,cb){
+  const el=document.getElementById(containerId);
+  if(!el) return;
+  el.innerHTML='';
+  for(let i=1;i<=n;i++){
+    const b=document.createElement('button');
+    b.className='sb'; b.textContent='☆'; b.dataset.v=i;
+    b.onclick=()=>{ cb(i); setStars(containerId,i) };
+    el.appendChild(b);
+  }
+}
+function setStars(containerId,v){
+  document.querySelectorAll('#'+containerId+' .sb').forEach((b,i)=>b.textContent=i<v?'⭐':'☆');
+}
+
+function renderHist(id){
+  const d=bd(id);
+  const el=document.getElementById('m-hist');
+  if(!d.entries||!d.entries.length){
+    el.innerHTML='<p style="color:#bbb;font-size:.83rem;text-align:center;padding:10px">Aún no tienes registros para este libro. ¡Empieza a leer!</p>';
+    return;
+  }
+  el.innerHTML=d.entries.slice().reverse().map(e=>`
+    <div class="history-item">
+      <h5>📅 ${e.date} &nbsp;·&nbsp; 📄 ${e.pages} págs &nbsp;·&nbsp; ⏱ ${e.mins} min</h5>
+      ${e.ideas?`<p>💡 <b>Ideas:</b> ${e.ideas}</p>`:''}
+      ${e.lessons?`<p>🚀 <b>Lecciones:</b> ${e.lessons}</p>`:''}
+    </div>`).join('');
+}
+
+function saveEntry(){
+  if(!modal) return;
+  const {id,sec}=modal;
+  const p=parseInt(document.getElementById('m-p').value)||0;
+  const m=parseInt(document.getElementById('m-m').value)||0;
+  const ideas=document.getElementById('m-i').value.trim();
+  const lessons=document.getElementById('m-l').value.trim();
+  if(!p&&!m&&!ideas&&!lessons){ toast('⚠️ Ingresa al menos un dato'); return }
+  const d=bd(id);
+  d.pages+=p; d.mins+=m;
+  if(mRat) d.rat=mRat;
+  d.entries.push({date:new Date().toLocaleDateString('es'),pages:p,mins:m,ideas,lessons});
+  sb(id,d);
+  renderHist(id);
+  renderBooks(sec);
+  updateStats(sec);
+  renderBadges(sec);
+  toast(`✅ Avance guardado: ${p} págs, ${m} min`,'ok');
+  ['m-p','m-m','m-i','m-l'].forEach(x=>document.getElementById(x).value='');
+}
+
+/* ── TRIVIA ─────────────────────────────── */
+function renderTrivia(){
+  tLock=false;
+  const q=TRIVIA[tIdx%TRIVIA.length];
+  document.getElementById('trivia-area').innerHTML=`
+    <p class="trivia-q">❓ ${q.q}</p>
+    <div class="trivia-opts">
+      ${q.opts.map((o,i)=>`<button class="topt" onclick="answerT(${i})">${o}</button>`).join('')}
+    </div>`;
+}
+function answerT(idx){
+  if(tLock) return; tLock=true;
+  const q=TRIVIA[tIdx%TRIVIA.length];
+  const opts=document.querySelectorAll('.topt');
+  const tc=gl('tc')||0, ta=gl('ta')||0, tp=gl('tp')||0;
+  sl('ta',ta+1); set('ta',ta+1);
+  opts[q.a].classList.add('correct');
+  if(idx===q.a){
+    sl('tc',tc+1); sl('tp',tp+10);
+    set('tc',tc+1); set('tp',tp+10);
+    toast('🎉 ¡Correcto! +10 puntos','ok');
+  } else {
+    opts[idx].classList.add('wrong');
+    toast('❌ Incorrecto. La respuesta está destacada.');
+  }
+  setTimeout(()=>{ tIdx++; renderTrivia(); updateStats('est'); renderBadges('est') },2000);
+}
+
+/* ── REVIEWS ────────────────────────────── */
+function pickMood(btn){
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel'); rMood=btn.dataset.m;
+}
+function submitReview(){
+  const bk=document.getElementById('rev-book').value;
+  const txt=document.getElementById('rev-txt').value.trim();
+  if(!bk){ toast('⚠️ Selecciona un libro'); return }
+  if(!txt){ toast('⚠️ Escribe tu reseña'); return }
+  const revs=getRevs();
+  revs.unshift({bk,mood:rMood||'📖',rat:rRat,txt,date:new Date().toLocaleDateString('es')});
+  saveRevs(revs);
+  renderRevList();
+  document.getElementById('rev-book').value='';
+  document.getElementById('rev-txt').value='';
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('sel'));
+  setStars('rev-stars',0); rMood=''; rRat=0;
+  toast('💬 ¡Reseña publicada!','ok');
+  updateStats('est'); renderBadges('est');
+}
+function renderRevList(){
+  const el=document.getElementById('rev-list');
+  if(!el) return;
+  const revs=getRevs();
+  if(!revs.length){ el.innerHTML='<p style="color:#bbb;text-align:center;padding:12px">Sé el primero en compartir tu inspiración.</p>'; return }
+  el.innerHTML=revs.map(r=>`
+    <div class="review-item">
+      <div class="ri-head">
+        <span class="ri-book">${r.mood} ${r.bk}</span>
+        <span>${'⭐'.repeat(r.rat||0)} <small style="color:#bbb">${r.date}</small></span>
+      </div>
+      <div class="ri-text">${r.txt}</div>
+    </div>`).join('');
+}
+
+/* ── FAMILY GOAL ────────────────────────── */
+function updateGoal(){
+  const t=parseInt(document.getElementById('fg-t').value)||0;
+  const c=parseInt(document.getElementById('fg-c').value)||0;
+  if(!t){ toast('⚠️ Ingresa una meta de páginas'); return }
+  sl('fg_t',t); sl('fg_c',c);
+  const pct=Math.min(100,Math.round(c/t*100));
+  const bar=document.getElementById('goal-bar');
+  bar.style.width=pct+'%'; bar.dataset.pct=pct+'%';
+  const msg=document.getElementById('goal-msg');
+  if(pct>=100){ msg.textContent='🎉 ¡Meta cumplida! ¡Familia increíble!'; toast('🎉 ¡Meta familiar alcanzada!','gold') }
+  else if(pct>0){ msg.textContent='¡Van muy bien! '+pct+'% completado.' }
+  else { msg.textContent='¡Empiecen a leer juntos hoy!' }
+  renderBadges('fam');
+}
+function loadGoal(){
+  const t=gl('fg_t'), c=gl('fg_c');
+  if(t) document.getElementById('fg-t').value=t;
+  if(c) document.getElementById('fg-c').value=c;
+  if(t){
+    const pct=Math.min(100,Math.round((c||0)/t*100));
+    const bar=document.getElementById('goal-bar');
+    if(bar){ bar.style.width=pct+'%'; bar.dataset.pct=pct+'%' }
+    const msg=document.getElementById('goal-msg');
+    if(msg&&pct>0) msg.textContent=pct>=100?'🎉 ¡Meta cumplida!':'¡Van muy bien! '+pct+'% completado.';
+  }
+}
+
+/* ── REFLEXION (DOCENTES) ───────────────── */
+function saveRef(){
+  const v=document.getElementById('doc-ref').value.trim();
+  if(!v){ toast('⚠️ Escribe tu reflexión primero'); return }
+  sl('doc_ref',v); toast('💾 Reflexión guardada','ok');
+}
+function copyRef(){
+  const v=document.getElementById('doc-ref').value.trim();
+  if(!v){ toast('⚠️ No hay reflexión para copiar'); return }
+  const text='📚 Mi Lectura del Mes — Lectura Viva\n\n'+v+'\n\n✨ Compartido desde "Lectura Viva: Escuela y Familia que Inspiran"';
+  navigator.clipboard.writeText(text)
+    .then(()=>toast('📋 ¡Copiado! Pega y comparte con tus colegas','ok'))
+    .catch(()=>toast('Selecciona el texto manualmente y cópialo.'));
+}
+
+/* ── CHALLENGES ─────────────────────────── */
+function renderChallenges(sec){
+  const g=document.getElementById('ch-'+sec);
+  if(!g) return;
+  g.innerHTML=CHALLENGES[sec].map(c=>`
+    <div class="ch-card" style="border-top-color:${c.c}">
+      <div class="ch-icon">${c.icon}</div>
+      <h4>${c.t}</h4><p>${c.d}</p>
+      <span class="ch-pts">+${c.pts} pts</span>
+    </div>`).join('');
+}
+
+/* ── TIPS ───────────────────────────────── */
+function renderTips(){
+  const g=document.getElementById('tips');
+  if(!g) return;
+  g.innerHTML=TIPS.map(t=>`
+    <div class="tip-card">
+      <div class="tip-icon">${t.icon}</div>
+      <div><h4>${t.t}</h4><p>${t.d}</p></div>
+    </div>`).join('');
+}
+
+/* ── DAILY PHRASE ───────────────────────── */
+function setPhrase(){
+  const now=new Date();
+  const dy=Math.floor((now-new Date(now.getFullYear(),0,0))/(864e5));
+  const ph=PHRASES[dy%PHRASES.length];
+  const q=document.getElementById('daily-q');
+  const a=document.getElementById('daily-a');
+  if(q) q.textContent=ph.q;
+  if(a) a.textContent='— '+ph.a;
+}
+
+/* ── EXPORT PDF ─────────────────────────── */
+function exportPDF(sec){
+  const s=stats(sec);
+  const earned=(gl('eb_'+sec)||[]);
+  const earnedBadges=BADGES[sec].filter(b=>earned.includes(b.id));
+  const booksHTML=BOOKS[sec].map(bk=>{
+    const d=bd(bk.id);
+    if(!d.entries||!d.entries.length) return '';
+    return `<div style="border:1px solid #eee;border-radius:10px;padding:12px;margin-bottom:10px">
+      <strong>${bk.t}</strong> — <em>${bk.a}</em><br>
+      📄 ${d.pages} páginas &nbsp; ⏱ ${d.mins} min &nbsp; ${'⭐'.repeat(d.rat||0)}
+      ${d.entries.map(e=>`<div style="background:#f9f9f9;border-left:3px solid #ddd;border-radius:5px;padding:8px;margin:6px 0;font-size:.82rem">
+        📅 ${e.date}: ${e.pages} págs, ${e.mins} min
+        ${e.ideas?'<br>💡 '+e.ideas:''}
+        ${e.lessons?'<br>🚀 '+e.lessons:''}
+      </div>`).join('')}
+    </div>`;
+  }).join('');
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Mis Logros Lectores — Lectura Viva</title>
+  <style>
+    body{font-family:Arial,sans-serif;padding:36px;color:#1a1a2e;max-width:720px;margin:0 auto}
+    h1{font-size:2rem;margin-bottom:4px} .sub{color:#888;margin-bottom:24px;font-size:.9rem}
+    .stats{display:flex;gap:28px;flex-wrap:wrap;margin:18px 0}
+    .stat{background:#f5f5f5;border-radius:12px;padding:16px 22px;text-align:center}
+    .sn{font-size:2rem;font-weight:900} .sl{font-size:.78rem;color:#666;margin-top:3px}
+    h2{margin-top:28px;font-size:1.15rem;color:#333;border-bottom:2px solid #eee;padding-bottom:6px;margin-bottom:12px}
+    .badge{display:inline-block;background:#fff9e6;border:2px solid #f9a825;border-radius:8px;padding:8px 14px;margin:4px;font-size:.88rem;font-weight:700}
+    .footer{margin-top:40px;text-align:center;color:#bbb;font-size:.78rem;border-top:1px solid #eee;padding-top:14px}
+  </style></head><body>
+  <h1>📚 Mis Logros Lectores</h1>
+  <div class="sub">Lectura Viva: Escuela y Familia que Inspiran &nbsp;·&nbsp; ${new Date().toLocaleDateString('es')}</div>
+  <div class="stats">
+    <div class="stat"><div class="sn">${s.p}</div><div class="sl">Páginas leídas</div></div>
+    <div class="stat"><div class="sn">${s.m}</div><div class="sl">Minutos invertidos</div></div>
+    <div class="stat"><div class="sn">${s.b}</div><div class="sl">Libros iniciados</div></div>
+  </div>
+  <h2>🏅 Insignias Ganadas</h2>
+  ${earnedBadges.length?earnedBadges.map(b=>`<span class="badge">${b.icon} ${b.n}</span>`).join(''):'<p style="color:#bbb">Aún no has ganado insignias. ¡Sigue leyendo!</p>'}
+  <h2>📖 Mi Progreso por Libro</h2>
+  ${booksHTML||'<p style="color:#bbb">Aún no has registrado avances en ningún libro.</p>'}
+  <div class="footer">Generado con Lectura Viva: Escuela y Familia que Inspiran<br>"Leer 14 minutos al día transforma tu vida."</div>
+  </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),600);
+}
+
+/* ── TOAST ──────────────────────────────── */
+function toast(msg, type){
+  const c=document.getElementById('toasts');
+  const t=document.createElement('div');
+  t.className='toast '+(type||'');
+  t.textContent=msg;
+  c.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(36px)';
+    setTimeout(()=>t.remove(),400)},3200);
+}
+
+/* ── INIT SECTIONS ──────────────────────── */
+function initDoc(){
+  renderBooks('doc'); renderBadges('doc'); updateStats('doc');
+  const r=gl('doc_ref'); if(r) document.getElementById('doc-ref').value=r;
+}
+function initEst(){
+  renderBooks('est'); renderBadges('est'); updateStats('est');
+  renderChallenges('est'); renderTrivia();
+  const sel=document.getElementById('rev-book');
+  if(sel&&sel.options.length<=1)
+    BOOKS.est.forEach(b=>{const o=document.createElement('option');o.value=b.t;o.textContent=b.t;sel.appendChild(o)});
+  buildStars('rev-stars',5,v=>{rRat=v;setStars('rev-stars',v)});
+  renderRevList();
+}
+function initFam(){
+  renderBooks('fam'); renderBadges('fam'); updateStats('fam');
+  renderChallenges('fam'); renderTips(); loadGoal();
+}
+
+/* ── VIDEO: abre YouTube en nueva pestaña ── */
+function playVideo(id, title){
+  window.open('https://www.youtube.com/watch?v=' + id, '_blank', 'noopener');
+}
+
+/* ── NAME SYSTEM ────────────────────────── */
+function getReaderName(){ return gl('reader_name')||'' }
+
+function openNameModal(){
+  const nm=document.getElementById('name-modal-bg');
+  nm.style.display='flex';
+  const inp=document.getElementById('name-input');
+  inp.value=getReaderName();
+  setTimeout(()=>inp.focus(),120);
+}
+function closeNameModal(e){
+  if(e && e.target!==document.getElementById('name-modal-bg')) return;
+  document.getElementById('name-modal-bg').style.display='none';
+}
+function saveName(){
+  const v=document.getElementById('name-input').value.trim();
+  if(!v){ toast('⚠️ Escribe tu nombre'); return }
+  sl('reader_name',v);
+  updateNameUI(v);
+  document.getElementById('name-modal-bg').style.display='none';
+  toast('👤 ¡Hola, '+v+'! Tu nombre quedó guardado.','ok');
+}
+function updateNameUI(name){
+  const btn=document.getElementById('nav-name-btn');
+  if(btn) btn.textContent='👤 '+name;
+  // Update greetings in all section headers
+  document.querySelectorAll('.reader-greeting').forEach(el=>{
+    el.textContent = name ? '¡Hola, '+name+'! 👋' : '';
+    el.style.display = name ? 'inline-block' : 'none';
+  });
+}
+
+/* ── EXPORT PDF (con nombre) ────────────── */
+function exportPDF(sec){
+  const s=stats(sec);
+  const name=getReaderName();
+  const earned=(gl('eb_'+sec)||[]);
+  const earnedBadges=BADGES[sec].filter(b=>earned.includes(b.id));
+  const booksHTML=BOOKS[sec].map(bk=>{
+    const d=bd(bk.id);
+    if(!d.entries||!d.entries.length) return '';
+    return `<div style="border:1px solid #eee;border-radius:10px;padding:12px;margin-bottom:10px">
+      <strong>${bk.t}</strong> — <em>${bk.a}</em><br>
+      📄 ${d.pages} páginas &nbsp; ⏱ ${d.mins} min &nbsp; ${'⭐'.repeat(d.rat||0)}
+      ${d.entries.map(e=>`<div style="background:#f9f9f9;border-left:3px solid #ddd;border-radius:5px;padding:8px;margin:6px 0;font-size:.82rem">
+        📅 ${e.date}: ${e.pages} págs, ${e.mins} min
+        ${e.ideas?'<br>💡 '+e.ideas:''}
+        ${e.lessons?'<br>🚀 '+e.lessons:''}
+      </div>`).join('')}
+    </div>`;
+  }).join('');
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Reporte Lector — ${name||'Lectura Viva'}</title>
+  <style>
+    body{font-family:Arial,sans-serif;padding:36px;color:#1a1a2e;max-width:720px;margin:0 auto}
+    h1{font-size:2rem;margin-bottom:2px}
+    .reader-name{font-size:1.1rem;color:#6a11cb;font-weight:700;margin-bottom:4px}
+    .sub{color:#888;margin-bottom:24px;font-size:.88rem}
+    .stats{display:flex;gap:24px;flex-wrap:wrap;margin:18px 0}
+    .stat{background:#f5f5f5;border-radius:12px;padding:14px 20px;text-align:center}
+    .sn{font-size:2rem;font-weight:900} .sl{font-size:.76rem;color:#666;margin-top:2px}
+    h2{margin-top:26px;font-size:1.1rem;color:#333;border-bottom:2px solid #eee;padding-bottom:5px;margin-bottom:10px}
+    .badge{display:inline-block;background:#fff9e6;border:2px solid #f9a825;border-radius:8px;padding:7px 13px;margin:4px;font-size:.86rem;font-weight:700}
+    .footer{margin-top:40px;text-align:center;color:#bbb;font-size:.76rem;border-top:1px solid #eee;padding-top:14px}
+  </style></head><body>
+  <h1>📚 Reporte de Avances Lectores</h1>
+  ${name?`<div class="reader-name">👤 ${name}</div>`:''}
+  <div class="sub">Lectura Viva: Escuela y Familia que Inspiran &nbsp;·&nbsp; ${new Date().toLocaleDateString('es')}</div>
+  <div class="stats">
+    <div class="stat"><div class="sn">${s.p}</div><div class="sl">Páginas leídas</div></div>
+    <div class="stat"><div class="sn">${s.m}</div><div class="sl">Minutos invertidos</div></div>
+    <div class="stat"><div class="sn">${s.b}</div><div class="sl">Libros iniciados</div></div>
+  </div>
+  <h2>🏅 Insignias Ganadas</h2>
+  ${earnedBadges.length?earnedBadges.map(b=>`<span class="badge">${b.icon} ${b.n}</span>`).join(''):'<p style="color:#bbb">Aún no has ganado insignias. ¡Sigue leyendo!</p>'}
+  <h2>📖 Mi Progreso por Libro</h2>
+  ${booksHTML||'<p style="color:#bbb">Aún no has registrado avances en ningún libro.</p>'}
+  <div class="footer">Generado con Lectura Viva: Escuela y Familia que Inspiran<br>"Leer 14 minutos al día transforma tu vida."</div>
+  </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),600);
+}
+
+/* ── BOOT ───────────────────────────────── */
+document.addEventListener('DOMContentLoaded',()=>{
+  setPhrase();
+  // Load saved name
+  const savedName = getReaderName();
+  if(savedName) updateNameUI(savedName);
+  else setTimeout(openNameModal, 800); // prompt on first visit
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Escape'){
+      if(modal) closeModal();
+      document.getElementById('name-modal-bg').style.display='none';
+    }
+  });
+});
+</script>
+</body>
+</html>
